@@ -1,5 +1,5 @@
 function main() {
-
+  // Variables
   var closingCosts = 0;
   var currentLoanRemainingInterest = 0;
   var currentLoanInterestPaid = [];
@@ -28,12 +28,14 @@ function main() {
   // Calculate total interest
   currentLoanInterestPaid = calculateRemainingBalance(loanAmount, interestRate, loanTermYears, numberPayments);
   currentLoanTotalInterest = amortization(loanAmount, interestRate, loanTermYears);
-  document.write("<br>currentLoanInterestPaid = " + currentLoanInterestPaid[0]);
-  document.write("<br>currentLoanTotalInterest = " + currentLoanTotalInterest[0]);
+  // document.write("<br>currentLoanInterestPaid = " + currentLoanInterestPaid[0]);
+  // document.write("<br>currentLoanTotalInterest = " + currentLoanTotalInterest[0]);
   
+  // Calculate remaining interest on current loan
   currentLoanRemainingInterest = currentLoanTotalInterest[0] - currentLoanInterestPaid[0];
-  document.write("<br>currentLoanRemainingInterest = " + currentLoanRemainingInterest);
+  // document.write("<br>currentLoanRemainingInterest = " + currentLoanRemainingInterest);
   
+  // Input for loan refinance
   loanAmount = prompt("What would your new loan amount be?", 255000);
   interestRate = prompt("What would your new interest rate be as a percentage?", 3.625);
   loanTermYears = prompt("What will be the new term in years for the loan?", 30);
@@ -45,21 +47,30 @@ function main() {
   loanTermYears = Number(loanTermYears);
   closingCosts = Number(closingCosts);
   
+  // Amortize the refinance loan and total cost with closing
   refinanceLoanInterest = amortization(loanAmount, interestRate, loanTermYears);
-  document.write("<br>refinanceLoanInterest = " + refinanceLoanInterest[0]);
+  //document.write("<br>refinanceLoanInterest = " + refinanceLoanInterest[0]);
   refinanceLoanTotalCost = Number(refinanceLoanInterest[0]) + Number(closingCosts);
-  document.write("<br>refinanceLoanTotalCost = " + refinanceLoanTotalCost.toFixed(2));
+  //document.write("<br>Total cost to refinance the loan including interest: $" + refinanceLoanTotalCost.toFixed(2));
   
   refinance = compareLoans(currentLoanRemainingInterest, refinanceLoanTotalCost);
   
   if (refinance) {
-    output = "Refinance.";
+    output = "<h1>You should refinance.</h1>";
   } else {
-    output = "Don't refinance.";
+    output = "<h1>Don't refinance.</h1>";
   }
   
-  document.write("<br>" + output);
+  
+  
+  document.getElementById("main").innerHTML = "<br>" + output;
+  
+  // document.write(amortizationResult);
+  
+    document.getElementById("amortizationTableButton").onclick = function() {amortizationTable(refinanceLoanInterest[2], refinanceLoanInterest[3])};
+    //document.getElementById("amortizationTableButton").setAttribute('onclick', amortizationTable(refinanceLoanInterest[2], refinanceLoanInterest[3]));
 }
+
 
 main();
 
