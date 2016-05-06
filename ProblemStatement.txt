@@ -1,0 +1,23 @@
+Problem Statement:
+  Write a program that allows a user to determine if they should refinance their mortgage.  The program will ask the user for their current balance, current interest rate as a percentage, and current principal + interest payment.  It will also ask for the new interest rate, new loan balance, new loan term length in years, and estimated closing costs.  The program will then calculate the amount of interest that will be paid on the current loan as well as the amount of interest that will be paid on the new loan and compare which one is lower.  Display which loan option is better.
+  
+  The second iteration of the program will display the loan amortization and display where the breakeven point is.
+  
+  The third iteration of the program will add the option for factoring PMI into the comparison.  This will require asking for the home value and 
+  
+  For formulas:
+  http://www.mtgprofessor.com/formulas.htm
+  
+Nouns:
+  balance
+  rate
+  payment
+  term
+  interest
+  costs
+Verbs:
+  ask
+  calculate
+  determine
+  display
+  
