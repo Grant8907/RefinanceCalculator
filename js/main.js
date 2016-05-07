@@ -122,8 +122,8 @@ function main() {
   
   //display output
   document.getElementById("main").innerHTML = output;
-  document.getElementById("amortizationTableButton").onclick = function() {amortizationTable(refinanceLoanInterest[2], refinanceLoanInterest[3])};
-  document.getElementById("currentLoanButton").onclick = function() {amortizationTable(currentLoanTotalInterest[2], currentLoanTotalInterest[3])};
+  document.getElementById("amortizationTableButton").onclick = function() {amortizationTable(refinanceLoanInterest[2], refinanceLoanInterest[3], 0)};
+  document.getElementById("currentLoanButton").onclick = function() {amortizationTable(currentLoanTotalInterest[2], currentLoanTotalInterest[3], numberPayments)};
 
 }
 
