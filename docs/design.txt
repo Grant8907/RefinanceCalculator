@@ -1,0 +1,225 @@
+PROBLEM STATEMENT:
+  Write a program that allows a user to determine if they should refinance their mortgage.  The program will ask the user for their original loan amount, current interest rate as a percentage, original term of the loan in years, and number of payments made so far.  It will also ask for the new interest rate, new loan balance, new loan term length in years, and estimated closing costs.  The program will then calculate the amount of interest that is yet to be paid on the current loan as well as the total cost (amount of interest + closing fees) that will be paid on the new loan and compare which one is lower.  Display which loan option is better along with the total cost remaining per loan.  Give the user the option to see the amortization of the loans.
+  
+  The second iteration of the program will display where the breakeven point is.
+  
+  The third iteration of the program will add the option for factoring PMI into the comparison.  This will require asking for the home value and current PMI.
+  
+  For formulas:
+  http://www.mtgprofessor.com/formulas.htm
+  
+NOUNS AND VERBS:
+  
+Nouns:
+  loan
+  rate
+  term
+  payments
+  balance
+  costs
+Verbs:
+  ask
+  calculate
+  determine
+  display
+  
+  
+DEFINING DIAGRAM:
+
+Inputs:
+  loanAmount - reused for both original and new loan to conserve resources
+  interestRate - reused for both original and new loan to conserve resources
+  loanTermYears - reused for both original and new loan to conserve resources
+  closingCosts
+  numberPayments
+  
+Processing:
+  calculate interest paid so far on current loan
+  calculate total interest current loan
+  calculate remaining interest on current loan
+  calculate total interest new loan
+  calculate total cost of new loan
+  compare loans
+  construct output
+
+Output:
+  best option
+  amount of savings/cost
+  remaining interest
+  total cost of refinance
+  loan amortizations
+  
+  
+PSEUDOCODE:
+
+RefinanceCalculator
+  FUNCTION calculateRemainingBalance(loanAmount, interestRate, loanTermYears, numberPayments)
+    INITIALIZE loanTermMonths as loanTermYears * 12
+    INITIALIZE interestRateMonthly as interestRate / 12
+    INITIALIZE totalInterest as 0
+    INITIALIZE paymentCount as 1
+    INITIALIZE remainingBalance as loanAmount
+    
+    SET interestRateMonthly /= 100
+    
+    WHILE paymentCount <= numberPayments
+      SET totalInterest += (remainingBalance * interestRateMonthly)
+      SET remainingBalance = loanAmount * ((Math.pow((1 + interestRateMonthly), loanTermMonths)) - ((Math.pow((1 + interestRateMonthly), paymentCount)))) / ((Math.pow((1 + interestRateMonthly), loanTermMonths)) - 1)
+      SET remainingBalance = remainingBalance.toFixed(2)
+      IF remainingBalance > 0
+        paymentCount += 1
+      END
+    EMD
+    
+    RETURN [totalInterest, paymentCount]
+  END
+    
+  FUNCTION amortization(loanAmount, interestRate, loanTermYears)
+    
+    INITIALIZE loanTermMonths as loanTermYears * 12
+    INITIALIZE interestRateMonthly as interestRate / 12
+    INITIALIZE totalInterest as 0
+    INITIALIZE paymentCount as 1
+    INITIALIZE remainingBalance as loanAmount
+    INITIALIZE remainingBalanceAmortization as []
+    INITIALIZE interestPayment as 0
+    INITIALIZE interestPaymentAmortization as []
+    
+    SET interestRateMonthly /= 100
+    
+    WHILE remainingBalance > 0
+      SET interestPayment = remainingBalance * interestRateMonthly
+      SET interestPaymentAmortization.push(interestPayment)
+      
+      SET totalInterest += remainingBalance * interestRateMonthly
+      
+      SET remainingBalance = loanAmount * ((Math.pow((1 + interestRateMonthly), loanTermMonths)) - ((Math.pow((1 + interestRateMonthly), paymentCount)))) / ((Math.pow((1 + interestRateMonthly), loanTermMonths)) - 1)
+      
+      SET remainingBalance = remainingBalance.toFixed(2)
+      ADD remainingBalance to remainingBalanceAmortization array
+      
+      IF remainingBalance > 0
+        paymentCount += 1
+      END
+    END
+    
+    RETURN [totalInterest.toFixed(2), paymentCount, interestPaymentAmortization, remainingBalanceAmortization]
+  
+  END
+  
+  FUNCTION calculatePayment(loanAmount, loanTermYears, interestRate)
+  
+    INITIALIZE loanTermMonths as loanTermYears * 12
+    INITIALIZE interestRateMonthly as interestRate / 12
+    INITIALIZE payment as 0
+    
+    SET interestRateMonthly /= 100
+    
+    SET payment = loanAmount * (interestRateMonthly * (Math.pow((1 + interestRateMonthly), loanTermMonths))) / (((Math.pow((1 + interestRateMonthly), loanTermMonths))) - 1)
+    
+    RETURN payment
+  
+  END
+  
+  FUNCTION compareLoans(currentLoanTotalInterest, refinanceLoanTotalCost)
+
+    RETURN (currentLoanTotalInterest - refinanceLoanTotalCost)
+  
+  END
+  
+  
+  FUNCTION amortizationTable(interestPaymentAmortization, remainingBalance){
+    INITIALIZE body as document.body
+    INITIALIZE tbl  as document.createElement('table')
+    
+    SET tbl.style.width = '750px'
+    SET tbl.style.border = '1px solid black'
+    
+    
+    FOR (var index = 0; index < interestPaymentAmortization.length; index++)
+      INITIALIZE tr as tbl.insertRow()          
+      INITIALIZE td as tr.insertCell()
+      
+      td.appendChild(document.createTextNode("Payment Number: " + (index + 1) + "................"))
+      td.style.border = '1px solid black'      
+      td.appendChild(document.createTextNode("Interest Payment: $" + interestPaymentAmortization[index].toFixed(2) + "................"))
+      td.style.border = '1px solid black'
+      td.appendChild(document.createTextNode(" Remaining Balance: $" + remainingBalance[index]))
+      td.style.border = '1px solid black'                
+    END
+
+    body.appendChild(tbl)
+  END
+  
+  
+  FUNCTION main
+
+  INITIALIZE closingCosts = 0
+  INITIALIZE currentLoanRemainingInterest = 0
+  INITIALIZE currentLoanInterestPaid = []
+  INITIALIZE currentLoanTotalInterest = []
+  INITIALIZE interestRate = 0
+  INITIALIZE loanAmount = 0
+  INITIALIZE loanTermYears = 0
+  INITIALIZE numberPayments = 0
+  INITIALIZE output = ""
+  INITIALIZE refinance
+  INITIALIZE refinanceLoanInterest = 0
+  INITIALIZE refinanceLoanTotalCost = 0
+  
+  PROMPT for loanAmount with "What is the your current original loan amount?"
+  PROMPT for interestRate with "What is your current interest rate as a percentage?"
+  PROMPT for loanTermYears with "What was the original term in years for the loan?"
+  PROMPT for numberPayments with "How many payments have been made so far?"
+  
+  SET loanAmount = Number(loanAmount)
+  SET interestRate = Number(interestRate)
+  SET loanTermYears = Number(loanTermYears)
+  SET numberPayments = Number(numberPayments)
+  
+  SET currentLoanInterestPaid = calculateRemainingBalance(loanAmount, interestRate, loanTermYears, numberPayments)
+  SET currentLoanTotalInterest = amortization(loanAmount, interestRate, loanTermYears)
+  
+  SET currentLoanRemainingInterest = currentLoanTotalInterest[0] - currentLoanInterestPaid[0]
+  
+  PROMPT for loanAmount with "What would your new loan amount be?"
+  PROMPT for interestRate with "What would your new interest rate be as a percentage?"
+  PROMPT for loanTermYears with "What will be the new term in years for the loan?"
+  PROMPT for closingCosts with "What are the closing costs for the refinance?"
+  
+  SET loanAmount = Number(loanAmount)
+  SET interestRate = Number(interestRate)
+  SET loanTermYears = Number(loanTermYears)
+  SET closingCosts = Number(closingCosts)
+  
+  SET refinanceLoanInterest = amortization(loanAmount, interestRate, loanTermYears)
+  SET refinanceLoanTotalCost = Number(refinanceLoanInterest[0]) + Number(closingCosts)
+  
+  SET refinance = compareLoans(currentLoanRemainingInterest, refinanceLoanTotalCost)
+  
+  IF refinance > 50000
+    output = "<h1>You should definitely refinance!</h1><p>You will save $" + refinance.toFixed(2) + " over the life of your new loan.</p>"
+  ELSE IF refinance > 10000
+    output = "<h1>You should refinance.</h1><p>You will save $" + refinance.toFixed(2) + " over the life of your new loan.</p>"
+  ELSE IF refinance > 0
+    output = "<h1>You could refinance for a minimal savings.</h1><p>You will save $" + refinance.toFixed(2) + " over the life of your new loan.</p>"  
+  ELSE
+    output = "<h1>Don't refinance.</h1><p>You will lose $" + Math.abs(refinance).toFixed(2) + " over the life of your new loan.</p>"
+  END
+  
+  SET output += "<p>Total interest to be paid over remaining current loan: $" + currentLoanRemainingInterest.toFixed(2) + "</p>"
+  SET output += "<p>Total cost of refinancing (closing costs plus interest): $" + refinanceLoanTotalCost.toFixed(2) + "</p>" 
+  SET output += "<p>For best readability, please refresh the page between button clicks.</p>"
+  
+
+  DISPLAY output
+  DISPLAY amortizationTable(refinanceLoanInterest[2], refinanceLoanInterest[3])
+  DISPLAY amortizationTable(currentLoanTotalInterest[2], currentLoanTotalInterest[3])
+
+  }
+  
+  
+
+  
+  
+END
