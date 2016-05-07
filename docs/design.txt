@@ -255,30 +255,89 @@ TEST 1:
     Total cost of refinancing (closing costs plus interest): $164655.10
 
 TEST 2:
-  INPUTS:
+  INPUTS: -234532, b, c, d, e, f, g, h
   
   EXPECTED OUTPUT:
+    alerts that the values aren't valid and new prompts for each value.
   
   ACTUAL OUTPUT:
-  
+    alerts that the values aren't valid and new prompts for each value.
+    
 TEST 3:
-  INPUTS:
+  INPUTS: 260000, 6.125, 30, 36, 235000, 3.625, 20, 1000
   
   EXPECTED OUTPUT:
+    You should definitely refinance!
+    
+    You will save $165078.54 over the life of your new loan.
+    
+    Your current payment: $1579.79
+    
+    Your new payment: $1378.05
+    
+    Total interest to be paid over remaining current loan: $261810.12
+    
+    Total cost of refinancing (closing costs plus interest): $96731.58
   
   ACTUAL OUTPUT:
+    You should definitely refinance!
+    
+    You will save $165078.54 over the life of your new loan.
+    
+    Your current payment: $1579.79
+    
+    Your new payment: $1378.05
+    
+    Total interest to be paid over remaining current loan: $261810.12
+    
+    Total cost of refinancing (closing costs plus interest): $96731.58
   
 TEST 4:
-  INPUTS:
+  INPUTS: 100000, 4.125, 20, 24, 90000, 4.125, 30, 1000
   
   EXPECTED OUTPUT:
+    Don't refinance.
+    
+    You will lose $28993.97 over the life of your new loan.
+    
+    Total interest to be paid over remaining current loan: $39032.54
+    
+    Total cost of refinancing (closing costs plus interest): $68026.51
   
   ACTUAL OUTPUT:
+    Don't refinance.
+    
+    You will lose $28993.97 over the life of your new loan.
+    
+    Total interest to be paid over remaining current loan: $39032.54
+    
+    Total cost of refinancing (closing costs plus interest): $68026.51
   
 TEST 5:
-  INPUTS:
+  INPUTS: 100000, 3.5, 30, 1, 99500, 3.375, 30, 2000
   
   EXPECTED OUTPUT:
+    You could refinance for a minimal savings.
+
+    You will save $505.56 over the life of your new loan.
+    
+    Your current payment: $449.04
+    
+    Your new payment: $439.89
+    
+    Total interest to be paid over remaining current loan: $61364.42
+    
+    Total cost of refinancing (closing costs plus interest): $60858.86
   
   ACTUAL OUTPUT:
-  
+    You could refinance for a minimal savings.
+
+    You will save $505.56 over the life of your new loan.
+    
+    Your current payment: $449.04
+    
+    Your new payment: $439.89
+    
+    Total interest to be paid over remaining current loan: $61364.42
+    
+    Total cost of refinancing (closing costs plus interest): $60858.86
