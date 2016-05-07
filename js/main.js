@@ -28,12 +28,9 @@ function main() {
   // Calculate total interest
   currentLoanInterestPaid = calculateRemainingBalance(loanAmount, interestRate, loanTermYears, numberPayments);
   currentLoanTotalInterest = amortization(loanAmount, interestRate, loanTermYears);
-  // document.write("<br>currentLoanInterestPaid = " + currentLoanInterestPaid[0]);
-  // document.write("<br>currentLoanTotalInterest = " + currentLoanTotalInterest[0]);
   
   // Calculate remaining interest on current loan
   currentLoanRemainingInterest = currentLoanTotalInterest[0] - currentLoanInterestPaid[0];
-  // document.write("<br>currentLoanRemainingInterest = " + currentLoanRemainingInterest);
   
   // Input for loan refinance
   loanAmount = prompt("What would your new loan amount be?", 255000);
@@ -49,12 +46,12 @@ function main() {
   
   // Amortize the refinance loan and total cost with closing
   refinanceLoanInterest = amortization(loanAmount, interestRate, loanTermYears);
-  //document.write("<br>refinanceLoanInterest = " + refinanceLoanInterest[0]);
   refinanceLoanTotalCost = Number(refinanceLoanInterest[0]) + Number(closingCosts);
-  //document.write("<br>Total cost to refinance the loan including interest: $" + refinanceLoanTotalCost.toFixed(2));
   
+  // Calculate which loan is more expensive in total
   refinance = compareLoans(currentLoanRemainingInterest, refinanceLoanTotalCost);
   
+  // Construct output statements
   if (refinance > 50000) {
     output = "<h1>You should definitely refinance!</h1><p>You will save $" + refinance.toFixed(2) + " over the life of your new loan.</p>";
   } else if (refinance > 10000) {
@@ -67,16 +64,13 @@ function main() {
   
   output += "<p>Total interest to be paid over remaining current loan: $" + currentLoanRemainingInterest.toFixed(2) + "</p>";
   output += "<p>Total cost of refinancing (closing costs plus interest): $" + refinanceLoanTotalCost.toFixed(2) + "</p>"; 
-  
   output += "<p>For best readability, please refresh the page between button clicks.</p>"
   
+  //display output
   document.getElementById("main").innerHTML = output;
-  
-  // document.write(amortizationResult);
-  
-    document.getElementById("amortizationTableButton").onclick = function() {amortizationTable(refinanceLoanInterest[2], refinanceLoanInterest[3])};
-    document.getElementById("currentLoanButton").onclick = function() {amortizationTable(currentLoanTotalInterest[2], currentLoanTotalInterest[3])};
-    //document.getElementById("amortizationTableButton").setAttribute('onclick', amortizationTable(refinanceLoanInterest[2], refinanceLoanInterest[3]));
+  document.getElementById("amortizationTableButton").onclick = function() {amortizationTable(refinanceLoanInterest[2], refinanceLoanInterest[3])};
+  document.getElementById("currentLoanButton").onclick = function() {amortizationTable(currentLoanTotalInterest[2], currentLoanTotalInterest[3])};
+
 }
 
 

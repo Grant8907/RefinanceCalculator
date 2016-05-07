@@ -1,5 +1,6 @@
 function amortization(loanAmount, interestRate, loanTermYears) {
-
+  
+  // variables
   var loanTermMonths = loanTermYears * 12;
   var interestRateMonthly = interestRate / 12;
   var totalInterest = 0;
@@ -9,8 +10,10 @@ function amortization(loanAmount, interestRate, loanTermYears) {
   var interestPayment = 0;
   var interestPaymentAmortization = [];
   
+  // convert interest rate to decimal from percentage
   interestRateMonthly /= 100;
   
+  // loop through the loan payoff to create the amortization array and calculate the total interest
   while (remainingBalance > 0){
     interestPayment = remainingBalance * interestRateMonthly;
     interestPaymentAmortization.push(interestPayment);
@@ -25,11 +28,9 @@ function amortization(loanAmount, interestRate, loanTermYears) {
     if (remainingBalance > 0) {
       paymentCount += 1;
     }
-    
-    // document.write(remainingBalance + "<br>");
   }
   
-  // amortizationTable(interestPaymentAmortization, remainingBalanceAmortization);
+  // output the total interest, number of payments, interest payment amortization array, and remaining balance amortization array.
   return [totalInterest.toFixed(2), paymentCount, interestPaymentAmortization, remainingBalanceAmortization];
 
 }
