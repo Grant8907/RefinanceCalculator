@@ -219,3 +219,66 @@ RefinanceCalculator
   }
   
 END
+
+
+TEST PLANS:
+
+VARIABLES: loanAmount, interestRate, loanTermYears, numberPayments, closingCosts
+
+TEST 1:
+  INPUTS: 260000, 4.125, 30, 6, 255000, 3.625, 30, 1000
+  
+  EXPECTED OUTPUT:
+    You should refinance.
+
+    You will save $23633.53 over the life of your new loan.
+    
+    Your current payment: $1260.09
+    
+    Your new payment: $1162.93
+    
+    Total interest to be paid over remaining current loan: $188288.63
+    
+    Total cost of refinancing (closing costs plus interest): $164655.10
+  
+  ACTUAL OUTPUT:
+    You should refinance.
+    
+    You will save $23633.53 over the life of your new loan.
+    
+    Your current payment: $1260.09
+    
+    Your new payment: $1162.93
+    
+    Total interest to be paid over remaining current loan: $188288.63
+    
+    Total cost of refinancing (closing costs plus interest): $164655.10
+
+TEST 2:
+  INPUTS:
+  
+  EXPECTED OUTPUT:
+  
+  ACTUAL OUTPUT:
+  
+TEST 3:
+  INPUTS:
+  
+  EXPECTED OUTPUT:
+  
+  ACTUAL OUTPUT:
+  
+TEST 4:
+  INPUTS:
+  
+  EXPECTED OUTPUT:
+  
+  ACTUAL OUTPUT:
+  
+TEST 5:
+  INPUTS:
+  
+  EXPECTED OUTPUT:
+  
+  ACTUAL OUTPUT:
+  

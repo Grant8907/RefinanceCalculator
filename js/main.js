@@ -27,6 +27,25 @@ function main() {
   loanTermYears = Number(loanTermYears);
   numberPayments = Number(numberPayments);
   
+  while (isNaN(loanAmount) || loanAmount < 0 || isNaN(interestRate) || interestRate < 0 || isNaN(loanTermYears) || loanTermYears < 0 || isNaN(numberPayments) || numberPayments < 0){
+    if (isNaN(loanAmount) || loanAmount < 0) {
+      alert("The loan amount entered is not valid, please try again.");
+      loanAmount = prompt("What is the your current original loan amount?", 260000);
+    }
+    if (isNaN(interestRate) || interestRate < 0) {
+      alert("The interest rate entered is not valid, please try again.");
+      interestRate = prompt("What is your current interest rate as a percentage?", 4.125);
+    }
+    if (isNaN(loanTermYears) || loanTermYears < 0) {
+      alert("The loan term entered is not valid, please try again.");
+      loanTermYears = prompt("What was the original term in years for the loan?", 30);
+    }
+    if (isNaN(numberPayments) || numberPayments < 0) {
+      alert("The closing cost entered is not valid, please try again.");
+      numberPayments = prompt("How many payments have been made so far?", 6);
+    }
+  }
+  
   // Calculate total interest
   currentLoanInterestPaid = calculateRemainingBalance(loanAmount, interestRate, loanTermYears, numberPayments);
   currentLoanTotalInterest = amortization(loanAmount, interestRate, loanTermYears);
@@ -47,6 +66,27 @@ function main() {
   interestRate = Number(interestRate);
   loanTermYears = Number(loanTermYears);
   closingCosts = Number(closingCosts);
+  
+  // Check for any bad entries and re-prompt for those specific values.
+  while (isNaN(loanAmount) || loanAmount < 0 || isNaN(interestRate) || interestRate < 0 || isNaN(loanTermYears) || loanTermYears < 0 || isNaN(closingCosts) || closingCosts < 0){
+    if (isNaN(loanAmount) || loanAmount < 0) {
+      alert("The loan amount entered is not valid, please try again.");
+      loanAmount = prompt("What would your new loan amount be?", 255000);
+    }
+    if (isNaN(interestRate) || interestRate < 0) {
+      alert("The interest rate entered is not valid, please try again.");
+      interestRate = prompt("What would your new interest rate be as a percentage?", 3.625);
+    }
+    if (isNaN(loanTermYears) || loanTermYears < 0) {
+      alert("The loan term entered is not valid, please try again.");
+      loanTermYears = prompt("What will be the new term in years for the loan?", 30);
+    }
+    if (isNaN(closingCosts) || closingCosts < 0) {
+      alert("The closing cost entered is not valid, please try again.");
+      closingCosts = prompt("What are the closing costs for the refinance?", 1000);
+    }
+  }
+  
   
   // Amortize the refinance loan and total cost with closing
   refinanceLoanInterest = amortization(loanAmount, interestRate, loanTermYears);
