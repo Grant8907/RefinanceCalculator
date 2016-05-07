@@ -55,19 +55,24 @@ function main() {
   
   refinance = compareLoans(currentLoanRemainingInterest, refinanceLoanTotalCost);
   
-  if (refinance) {
-    output = "<h1>You should refinance.</h1>";
+  if (refinance > 50000) {
+    output = "<h1>You should definitely refinance!</h1><p>You will save $" + refinance.toFixed(2) + " over the life of your new loan.</p>";
+  } else if (refinance > 10000) {
+    output = "<h1>You should refinance.</h1><p>You will save $" + refinance.toFixed(2) + " over the life of your new loan.</p>";
+  } else if (refinance > 0) {
+    output = "<h1>You could refinance for a minimal savings.</h1><p>You will save $" + refinance.toFixed(2) + " over the life of your new loan.</p>";  
   } else {
-    output = "<h1>Don't refinance.</h1>";
+    output = "<h1>Don't refinance.</h1><p>You will lose $" + Math.abs(refinance).toFixed(2) + " over the life of your new loan.</p>";
   }
   
+  output += "<p>For best readability, please refresh the page between button clicks.</p>"
   
-  
-  document.getElementById("main").innerHTML = "<br>" + output;
+  document.getElementById("main").innerHTML = output;
   
   // document.write(amortizationResult);
   
     document.getElementById("amortizationTableButton").onclick = function() {amortizationTable(refinanceLoanInterest[2], refinanceLoanInterest[3])};
+    document.getElementById("currentLoanButton").onclick = function() {amortizationTable(currentLoanTotalInterest[2], currentLoanTotalInterest[3])};
     //document.getElementById("amortizationTableButton").setAttribute('onclick', amortizationTable(refinanceLoanInterest[2], refinanceLoanInterest[3]));
 }
 
