@@ -7,7 +7,9 @@ function main() {
   var interestRate = 0;
   var loanAmount = 0;
   var loanTermYears = 0;
+  var newPayment = 0;
   var numberPayments = 0;
+  var originalPayment = 0;
   var output = "";
   var refinance;
   var refinanceLoanInterest = 0;
@@ -32,6 +34,8 @@ function main() {
   // Calculate remaining interest on current loan
   currentLoanRemainingInterest = currentLoanTotalInterest[0] - currentLoanInterestPaid[0];
   
+  originalPayment = calculatePayment(loanAmount, loanTermYears, interestRate);
+  
   // Input for loan refinance
   loanAmount = prompt("What would your new loan amount be?", 255000);
   interestRate = prompt("What would your new interest rate be as a percentage?", 3.625);
@@ -52,19 +56,29 @@ function main() {
   refinance = compareLoans(currentLoanRemainingInterest, refinanceLoanTotalCost);
   
   // Construct output statements
-  if (refinance > 50000) {
-    output = "<h1>You should definitely refinance!</h1><p>You will save $" + refinance.toFixed(2) + " over the life of your new loan.</p>";
-  } else if (refinance > 10000) {
-    output = "<h1>You should refinance.</h1><p>You will save $" + refinance.toFixed(2) + " over the life of your new loan.</p>";
-  } else if (refinance > 0) {
-    output = "<h1>You could refinance for a minimal savings.</h1><p>You will save $" + refinance.toFixed(2) + " over the life of your new loan.</p>";  
-  } else {
+  if (refinance > 0) {
+    if (refinance > 50000) {
+      output = "<h1>You should definitely refinance!</h1><p>You will save $" + refinance.toFixed(2) + " over the life of your new loan.</p>";
+    } else if (refinance > 10000) {
+      output = "<h1>You should refinance.</h1><p>You will save $" + refinance.toFixed(2) + " over the life of your new loan.</p>";
+    } else if (refinance > 0) {
+      output = "<h1>You could refinance for a minimal savings.</h1><p>You will save $" + refinance.toFixed(2) + " over the life of your new loan.</p>";  
+    }
+    
+    // Only calculate new payment if refinancing is a good option.
+    newPayment = calculatePayment(loanAmount, loanTermYears, interestRate);
+    
+    output += "<p>Your current payment: $" + originalPayment + "</p><p>Your new payment: $" + newPayment + "</p>";
+    
+  }  else {
     output = "<h1>Don't refinance.</h1><p>You will lose $" + Math.abs(refinance).toFixed(2) + " over the life of your new loan.</p>";
   }
   
+  
+  
   output += "<p>Total interest to be paid over remaining current loan: $" + currentLoanRemainingInterest.toFixed(2) + "</p>";
   output += "<p>Total cost of refinancing (closing costs plus interest): $" + refinanceLoanTotalCost.toFixed(2) + "</p>"; 
-  output += "<p>For best readability, please refresh the page between button clicks.</p>"
+  output += "<p>For best readability, please refresh the page between button clicks.</p>";
   
   //display output
   document.getElementById("main").innerHTML = output;
