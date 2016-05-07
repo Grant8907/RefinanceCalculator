@@ -1,5 +1,7 @@
 function amortizationTable(interestPaymentAmortization, remainingBalance){
-    // variables
+  // got help with the creation of the table from this site...  The answer with 51 votes.
+  // http://stackoverflow.com/questions/14643617/create-table-using-javascript  
+  // variables
     var body = document.body;
     var tbl  = document.createElement('table');
     
