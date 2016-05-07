@@ -65,6 +65,9 @@ function main() {
     output = "<h1>Don't refinance.</h1><p>You will lose $" + Math.abs(refinance).toFixed(2) + " over the life of your new loan.</p>";
   }
   
+  output += "<p>Total interest to be paid over remaining current loan: $" + currentLoanRemainingInterest.toFixed(2) + "</p>";
+  output += "<p>Total cost of refinancing (closing costs plus interest): $" + refinanceLoanTotalCost.toFixed(2) + "</p>"; 
+  
   output += "<p>For best readability, please refresh the page between button clicks.</p>"
   
   document.getElementById("main").innerHTML = output;
@@ -78,29 +81,3 @@ function main() {
 
 
 main();
-
-
-/*
-var payment = 0;
-
-payment = calculatePayment(100000, 30, 0.035);
-  
-remove this for final build
-document.write(payment);
-  
-var loanDetails = [];
-
-
-loanDetails = amortization(100000, 0.035, 1000, 30);
-
-var loanAmount = 100000;
-var interestRate = 0.035;
-var loanTermYears = 30;
-var numberPayments = 20;
-
-remainingBalance = calculateRemainingBalance(loanAmount, interestRate, loanTermYears, numberPayments);
-
-
-document.write("Total interest is " + loanDetails[0] + " after " + loanDetails[1] + " payments.");
-
-*/
